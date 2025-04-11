@@ -11,14 +11,14 @@ import { RouterModule } from '@angular/router';
 })
 export class PostDetailComponent {
 
-  id = input.required<number>()
-
+  id = input.required<number>();
   dataService = inject(DataService);
-
   post!: Post
   
   ngOnInit(){ 
-    this.post = this.dataService.getPostById(this.id());
+    this.dataService.getPostById(this.id()).subscribe((post) => {
+      this.post = post[0];
+    });
   }
 }
 

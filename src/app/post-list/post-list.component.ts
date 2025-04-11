@@ -7,16 +7,29 @@ import { RouterModule } from '@angular/router';
   selector: 'app-post-list',
   imports: [RouterModule],
   templateUrl: './post-list.component.html',
-  styleUrl: './post-list.component.css'
+  styleUrl: './post-list.component.css',
 })
 export class PostListComponent {
-
   postService = inject(DataService);
   posts: Post[] = [];
 
-  ngOnInit(){
-    this.posts = this.postService.posts;
-  }
-  
+  ngOnInit() {
+    // this.postService
+    //   .getPosts()
+    //   .pipe(
+    //     map((posts: Post[]) =>
+    //       posts.filter((post) => post.title.toLowerCase().includes('dol'))
+    //     )
+    //   )
+    //   .subscribe((data) => (this.posts = data));
 
+    // this.posts = this.postService.posts;
+    this.postService.getPosts().subscribe((posts) => {
+      this.posts = posts;
+    });
+  }
+
+  addPost() {
+    this.postService.addPost().subscribe((data) => console.log(data));
+  }
 }
